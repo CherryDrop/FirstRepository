@@ -8,7 +8,7 @@ import MyHeader from './MyHeader';
 
 function MyLayout ({children}) {
     return (
-        <Flex direction={'column'} minH={'100vh'} bg={customTheme.colors[15]}>
+        <Flex direction={'column'} minH={'110vh'} bg={customTheme.colors[15]} justifyContent={'space-between'}>
             <MyHeader/>
             {children}
             <Myfooter/>
