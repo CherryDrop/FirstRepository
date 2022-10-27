@@ -1,7 +1,9 @@
+import HomePanel from "@myComponents/HomePanel";
+
 export default function Index() {
    return (
       <div>
-            hello worldoruu
+            <HomePanel/>
       </div>
    )
 }
