@@ -5,9 +5,10 @@ import React from 'react';
 
 // a navbar that navigates between nextjs pages
 const hrefs = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/all', label: 'All Categories' },
+    { href: '/hot', label: 'Hot!' },
+    { href: '/new', label: 'New ☼' },
+    { href: '/daily', label: 'Daily Offer!' },
 ]
 const MyHeader: React.FC = () => {
     return (
