@@ -6,8 +6,16 @@ import { AppProps } from "next/app"
 
 import '../styles/styles.css'
 
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+
+
 function MyApp({ Component, pageProps }: AppProps) {
+  const client = new ApolloClient({
+    uri: 'http://192.168.1.5:3041/graphql',
+    cache: new InMemoryCache(),
+  });
   return (
+    <ApolloProvider client={client}>
     <ChakraProvider theme={theme}>
       <AlertStackProvider>
         <BatataProvider>
@@ -17,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </BatataProvider>
       </AlertStackProvider>
     </ChakraProvider>
+    </ApolloProvider>
   )
 }
 
