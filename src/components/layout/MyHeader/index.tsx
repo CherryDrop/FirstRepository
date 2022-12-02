@@ -12,7 +12,7 @@ const hrefs = [
 ]
 const MyHeader: React.FC = () => {
     return (
-        <Flex align="center" justify="space-between" direction={'column'} color="white" >
+        <Flex align="center" justify="space-between" direction={'column'} color="white" marginBottom={'.1rem'}>
             <Link href="/">
                 <a ><Flex className='home-link' style={{
                     padding: '.2rem',

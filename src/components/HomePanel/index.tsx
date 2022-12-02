@@ -14,6 +14,7 @@ const HomePanel: React.FC = () => {
         style={{
             aspectRatio: '2/1',
         }}
+        margin={'0 auto'}
         >
             <Flex bg={'red.500'} width='100%'height={'100%'} gridArea='a'>1</Flex>
             <Flex bg={'blue.500'}width='100%'height={'100%'}gridArea='b'>2</Flex>

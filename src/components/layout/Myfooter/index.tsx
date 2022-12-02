@@ -12,7 +12,7 @@ const socielMediaLinks = [
 ]
 const Myfooter: React.FC = () => {
     return (
-        <Flex as="footer" align="center" justify="space-between" wrap="wrap" padding="1.5rem" bg={customTheme.colors[10]} color="white">
+        <Flex as="footer" align="center" justify="space-between" wrap="wrap" padding="1.5rem" bg={customTheme.colors[10]} color="white" marginTop={'5rem'}>
             {socielMediaLinks.map(({label, href}) => (
                 <a key={label} href={href} target="_blank" rel="noreferrer">
                     {label}
