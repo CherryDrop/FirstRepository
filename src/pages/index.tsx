@@ -3,7 +3,12 @@ import HomePanel from "@myComponents/HomePanel";
 
 export default function Index() {
    return (
-      <div>
+      <div
+      style={{
+         paddingLeft: '1rem',
+         paddingRight: '1rem',
+      }}
+      >
             <HomePanel/>
             <HomeInfoPanel/>
       </div>

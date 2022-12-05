@@ -12,7 +12,11 @@ const hrefs = [
 ]
 const MyHeader: React.FC = () => {
     return (
-        <Flex align="center" justify="space-between" direction={'column'} color="white" marginBottom={'.1rem'}>
+        <Flex align="center" justify="space-between" 
+        direction={['column', 'row', 'row', 'row']}
+        color="white" marginBottom={'.3rem'}
+        padding='0 .2rem 0 .2rem'
+        >
             <Link href="/">
                 <a ><Flex className='home-link' style={{
                     padding: '.2rem',
@@ -45,7 +49,11 @@ const MyHeader: React.FC = () => {
                 </Flex></a>
             </Link>
 
-            <Grid templateColumns="repeat(4, 1fr)"
+            <Flex className='nav-links' width={['100%', '100%', '100%', '100%']}
+            justifyContent='space-around'
+            gap='.5rem'
+            padding='0 .2rem 0 .2rem'
+            height={'3rem'}
             >
                 {hrefs.map(({ href, label }) => (
                     <Link key={href} href={href}>
@@ -65,7 +73,7 @@ const MyHeader: React.FC = () => {
                         >{label}</a>
                     </Link>
                 ))}
-            </Grid>
+            </Flex>
         </Flex>
     )
 }
