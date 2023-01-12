@@ -4,12 +4,7 @@ import HomeShowList from "@myComponents/HomeShowList";
 
 export default function Index() {
    return (
-      <div
-      style={{
-         paddingLeft: '1rem',
-         paddingRight: '1rem',
-      }}
-      >
+      <div>
             <HomePanel/>
             <HomeShowList/>
             <HomeInfoPanel/>
