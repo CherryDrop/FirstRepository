@@ -18,7 +18,7 @@ const MyHeader: React.FC = () => {
         padding='0 .2rem 0 .2rem'
         >
             <Link href="/">
-                <a ><Flex className='home-link' style={{
+                <Flex className='home-link' style={{
                     padding: '.2rem',
                     color: 'black',
                     display: 'flex',
@@ -46,7 +46,7 @@ const MyHeader: React.FC = () => {
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                     <span style={{marginLeft: '.6rem'}}>E-commerce Simplified</span>
-                </Flex></a>
+                </Flex>
             </Link>
 
             <Flex className='nav-links' width={['100%', '100%', '100%', '100%']}
@@ -57,7 +57,7 @@ const MyHeader: React.FC = () => {
             >
                 {hrefs.map(({ href, label }) => (
                     <Link key={href} href={href}>
-                        <a style={{
+                        <div style={{
                             boxShadow: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px',
                             display: 'flex',
                             alignItems: 'center',
@@ -70,7 +70,7 @@ const MyHeader: React.FC = () => {
                             textAlign: 'center',
                             borderRadius: '0.5rem',
                         }}
-                        >{label}</a>
+                        >{label}</div>
                     </Link>
                 ))}
             </Flex>
