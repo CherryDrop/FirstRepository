@@ -1,7 +1,9 @@
-import { Flex, Grid } from '@chakra-ui/react';
+import LoginButton from '@myComponents/auth/LoginButton';
+import LogoutButton from '@myComponents/auth/LogoutButton';
 import { customTheme } from '@myStyles/GlobalStyles';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { TUserInfo } from 'src/lib/auth0/auth0';
 
 // a navbar that navigates between nextjs pages
 const hrefs = [
@@ -11,14 +13,31 @@ const hrefs = [
     { href: '#/daily', label: 'Daily Offer!' },
 ]
 const MyHeader: React.FC = () => {
+    const [isLogged, setIsLogged] = React.useState<boolean>(false)
+    const [user, setUser] = React.useState<TUserInfo>(null)
+
+    useEffect(() => {
+        fetch('/api/auth0/get-user').then((res) => {
+            if (res.ok) {
+                setIsLogged(true)
+            }
+            res.json().then((data) => {
+                setUser(data)
+            })
+            return
+        }).catch((err) => { return })
+    }, [])
     return (
-        <Flex align="center" justify="space-between" 
-        direction={['column', 'row', 'row', 'row']}
-        color="white" marginBottom={'.3rem'}
-        padding='0 .2rem 0 .2rem'
-        >
+        <div className='navbar
+        flex flex-col items-center justify-space-between
+        sm:flex-row
+        text-white
+        mb-3
+        p-[0.2rem]
+        '>
             <Link href="/">
-                <div ><Flex className='home-link' style={{
+                <div>
+                    <div className='home-link' style={{
                     padding: '.2rem',
                     color: 'black',
                     display: 'flex',
@@ -27,8 +46,8 @@ const MyHeader: React.FC = () => {
                     width: '100%',
                     height: '100%',
                     textDecoration: 'none',
-                }}
-                >
+                    }}
+                    >
 
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -46,15 +65,14 @@ const MyHeader: React.FC = () => {
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                     <span style={{marginLeft: '.6rem'}}>E-commerce Simplified</span>
-                </Flex></div>
+                </div></div>
             </Link>
 
-            <Flex className='nav-links' width={['100%', '100%', '100%', '100%']}
-            justifyContent='space-around'
-            gap='.5rem'
-            padding='0 .2rem 0 .2rem'
-            height={'3rem'}
-            >
+            <div className='nav-links
+            flex justify-space-around
+            w-full gap[.5rem] p-[0.2rem]
+            h-[3rem]
+            '>
                 {hrefs.map(({ href, label }) => (
                     <Link key={href} href={href}>
                         <div style={{
@@ -73,9 +91,19 @@ const MyHeader: React.FC = () => {
                         >{label}</div>
                     </Link>
                 ))}
-            </Flex>
-        </Flex>
+            </div>
+
+            {isLogged ? (
+            <LogoutButton className='bg-gray-500 cursor-pointer'>
+                logout {user?.name}
+            </LogoutButton>
+            ) : (
+            <LoginButton className='bg-gray-500'>
+                login
+            </LoginButton>
+            )}
+        </div>
     )
 }
 
-export default MyHeader;
+export default MyHeader
