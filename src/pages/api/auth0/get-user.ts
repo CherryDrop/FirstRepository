@@ -1,5 +1,6 @@
 import nextConnect from "next-connect";
 import { getUserResourceFromServer } from "src/lib/auth0/auth0";
+import { RedirectErrorFunction } from "src/lib/errorHandling/ErrorPageRedirect";
 import { AuthorizationMiddlewareGen } from "src/lib/middlewares/authorization";
 
 const apiRoute = nextConnect({
@@ -30,10 +31,7 @@ apiRoute.get(AuthorizationMiddlewareGen(), async (req, res) => {
         res.end()
         return
     } catch (err) {
-        const [statusCode, message] = err.message.split("::::");
-        res.statusCode = parseInt(statusCode);
-        res.write(JSON.stringify({ error: message }));
-        res.end();
+        return RedirectErrorFunction(res, err)
     }
 });
 
