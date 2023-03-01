@@ -25,6 +25,13 @@ export default class Api {
                 variables,
             }),
         });
+
+        if (!response.ok) {
+            console.log("API error")
+            console.log(response)
+            return Promise.resolve({ data: null });
+        }
+
         return response.json();
     }
 }
