@@ -2,6 +2,7 @@ import nextConnect from "next-connect";
 import { CheckAccessToken, CheckIdToken, TouchApiToGetTokens, verifyAuth0RedirectUrl } from "src/lib/auth0/auth0";
 import crypto from "crypto";
 import Api from "src/lib/api";
+import { RedirectErrorFunction } from "src/lib/errorHandling/ErrorPageRedirect";
 
 const apiRoute = nextConnect({
     // Handle any other HTTP method
@@ -102,16 +103,10 @@ apiRoute.get(async (req, res) => {
 
         return res.end();
     } catch (err) {
-        console.log(err);
-        const [statusCode, message] = err.message.split("::::");
-        res.statusCode = parseInt(statusCode);
-        res.writeHead(302, {
-            Location: `/?error=${message}`
-        });
-        res.end();
-        return;
+        return RedirectErrorFunction(res, err)
     }
 });
 
 
 export default apiRoute;
+
