@@ -11,6 +11,7 @@ const hrefs = [
     { href: '#/hot', label: 'Hot!' },
     { href: '#/new', label: 'New ☼' },
     { href: '#/daily', label: 'Daily Offer!' },
+    { href: '/manage', label: 'Manage' },
 ]
 const MyHeader: React.FC = () => {
     const [isLogged, setIsLogged] = React.useState<boolean>(false)
@@ -94,9 +95,17 @@ const MyHeader: React.FC = () => {
             </div>
 
             {isLogged ? (
-            <LogoutButton className='bg-gray-500 cursor-pointer'>
-                logout {user?.name}
-            </LogoutButton>
+            <>
+                <img src={user?.picture} alt={user?.name} className='rounded-full w-10 h-10 cursor-pointer' crossOrigin=''
+                referrerPolicy='no-referrer' 
+                onClick={() => {
+                    window.location.href = '/profile'
+                }}
+                />
+                <LogoutButton className='bg-gray-500 cursor-pointer'>
+                    logout
+                </LogoutButton>
+            </>
             ) : (
             <LoginButton className='bg-gray-500'>
                 login
