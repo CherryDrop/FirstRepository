@@ -1,5 +1,4 @@
 import nextConnect from "next-connect";
-import { RedirectErrorFunction } from "src/lib/errorHandling/ErrorPageRedirect";
 import { getCsrfTokenShortcut } from "src/lib/requestUtils";
 
 const apiRoute = nextConnect({
@@ -20,7 +19,7 @@ const apiRoute = nextConnect({
 
 apiRoute.get(async (req, res) => {
     try {
-        const csrfToken = getCsrfTokenShortcut(req);
+        const csrfToken = await getCsrfTokenShortcut(req);
         if (!csrfToken) { 
             throw new Error("400::::Header 'x-csrf-token' is missing");
         }
@@ -32,7 +31,11 @@ apiRoute.get(async (req, res) => {
 
         return res.end();
     } catch (err) {
-        return RedirectErrorFunction(res, err)
+        const [statusCode, message] = err.message.split("::::");
+        const resObj = { error: message }
+        res.statusCode = parseInt(statusCode);
+        res.write(JSON.stringify(resObj));
+        res.end();
     }
 });
 
