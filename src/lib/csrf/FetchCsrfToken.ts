@@ -1,5 +1,5 @@
 
-export async function FetchCsrfToken(): Promise<{ csrfToken: string }> {
+export async function FetchCsrfToken(): Promise<{ csrfToken: string } | {error: string}> {
     const csrfResponse = await fetch("/api/csrf/get-token", {
         credentials: "include",
     })
