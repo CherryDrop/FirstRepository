@@ -18,7 +18,9 @@ const apiRoute = nextConnect({
     }
 });
 
-apiRoute.get( AuthorizationMiddlewareGen(undefined, true), async (req, res) => {
+apiRoute.get( AuthorizationMiddlewareGen([
+    "manager",
+], true), async (req, res) => {
     try {
         const extension = req.url.split("?")[1]?.split("&").find((item) => item.includes("extension"))?.split("=")[1];
         if (!extension) {
