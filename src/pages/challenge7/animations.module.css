@@ -1,0 +1,30 @@
+@keyframes crescer {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  20% {
+    transform: translateX(150px) translateY(-150px) rotate(360deg);
+  }
+  40% {
+    transform: translateX(0) translateY(-300px) rotate(360deg);
+  }
+  60% {
+    transform: translateX(-150px) translateY(-150px) rotate(360deg);
+  }
+  80% {
+    transform: translateX(0) translateY(0) rotate(0deg) scale(1.3);
+  }
+  90% {
+    transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+  }
+  95% {
+    transform: translateX(0) translateY(0) rotate(0deg) scale(1.05);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+.objectanimated:hover {
+  animation: crescer 4s;
+}

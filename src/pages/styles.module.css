@@ -1,0 +1,29 @@
+.profileimgdiv {
+  border: 5px solid brown;
+}
+@keyframes mudarcor {
+  0% {
+    background-color: rgb(147, 1, 221);
+  }
+
+  100% {
+    background-color: rgb(66, 1, 104);
+  }
+}
+
+.objetoanimation:hover {
+  animation: mudarcor 1s infinite;
+}
+
+@keyframes borderanimation {
+  0% { 
+    color: darkseagreen;
+  }
+  100% {
+    color: hotpink;
+  }
+}
+
+.borderanimation{
+animation: borderanimation 1s infinite;
+}
