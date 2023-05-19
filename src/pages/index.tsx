@@ -1,15 +1,53 @@
+
+
+import dynamic from "next/dynamic";
 import styles from "./styles.module.css";
 
-import React from "react";
+import React, { useState } from "react";
 
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import 'react-quill/dist/quill.snow.css';
 // import { Container } from './styles';
 
 const mainpage: React.FC = () => {
+  const [content, setContent] = useState('');
+  const modules = {
+    toolbar: [
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+      [{size: []}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image', 'video'],
+      ['clean']
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    }
+  };
+  
+  const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video'
+  ];
+  
+
+  
   return (
     <main className="mx-auto max-w-[50rem]">
       <Navigation className="w-[100%] relative" />
 
       <Perfil className="w-[100%] relative" />
+      {true && (
+      <ReactQuill
+    value={content}
+    onChange={setContent}
+  modules={modules}
+  formats={formats}
+    style={{ height: '300px', width: '100%' }}
+  />)}
 
       <div className=" bg-blue-100 h-[25rem] relative"></div>
     </main>
@@ -56,7 +94,7 @@ const CARDcomFOTO: React.FC<Props> = ({ className: classNameReceived }) => {
       <div className="w-full bg-white shadow-lg rounded-lg overflow-hidden mx-auto">
         <div className="flex justify-center items-center h-64 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700">
           <Imagem
-            className="w-48 rounded-full overflow-hidden absolute left-2"
+            className="hover:cursor-pointer hover:scale-110 transition duration-300 ease-out w-48 rounded-full overflow-hidden absolute left-2"
             src="https://avatars.akamai.steamstatic.com/8d18a03f66131c733fe2ef9cc7047a2eb64d84b1_full.jpg"
             alt="Person"
           />
@@ -74,9 +112,22 @@ const CARDcomFOTO: React.FC<Props> = ({ className: classNameReceived }) => {
           <BotaoMensagem className="top-[13rem] right-2 absolute" />
           <div className="top-[3rem] absolute right-[2.1rem]">Nivel</div>
         </div>
-        <div className="h-[10rem] w-full bg-purple-400 flex justify-center items-start flex-col">
-          <h1 className="text-[1.60rem] text-white font-sans ml-5">Off-line</h1>
-          <h1 className="font-sans ml-5">Última vez on-line há 1h, 5 min</h1>
+        <div className="h-fit w-full bg-purple-400 flex justify-center items-start flex-col">
+          <h1 className="text-[1.60rem] text-white font-sans ml-5">Seto Kaiba</h1>
+          <div className="font-sans ml-5">
+
+
+          <section>
+    <h1 className="font-sans font-bold mb-4 text-[1.30rem]">Seto Kaiba - O CEO da Kaiba Corp</h1>
+    <p className="font-sans">Seto Kaiba é um personagem fictício da série de anime e mangá Yu-Gi-Oh!. Ele é o CEO da Kaiba Corp, uma grande corporação que desenvolve tecnologias de jogos de cartas. Kaiba é conhecido por ser um dos melhores jogadores de Yu-Gi-Oh! do mundo e é famoso por seu dragão branco de olhos azuis.</p>
+    <img src="https://media.tenor.com/images/6d45f91b9a9cb318eec317c3b4028f67/tenor.png" alt="Seto Kaiba" className="h-[10rem] w-fit"/>
+    <p className="font-sans">Além de ser um jogador habilidoso, Kaiba é um estrategista brilhante e usa suas habilidades de negociação para controlar o mercado de jogos de cartas. Ele é muitas vezes retratado como um antagonista na série, mas também mostra um lado mais gentil e humano em algumas situações.</p>
+    <p className="font-sans">Apesar de ser um personagem fictício, Seto Kaiba inspirou muitas pessoas ao redor do mundo a se tornarem jogadores de Yu-Gi-Oh! e fãs da série. Se você ainda não conhece a história de Kaiba, vale a pena conferir!</p>
+    <p className="font-sans">Publicado em: 09 de Abril de 2023</p>
+    <p className="font-sans">Última atualização: 10 de Abril de 2023</p>
+  </section>
+
+          </div>
         </div>
       </div>
       <div

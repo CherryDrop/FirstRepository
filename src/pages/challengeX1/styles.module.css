@@ -1,0 +1,102 @@
+@keyframes muda-cor {
+  0% {
+    background-color: blue;
+  }
+  50% {
+    background-color: green;
+  }
+  100% {
+    background-color: blue;
+  }
+}
+
+@keyframes cresce-e-volta {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes kika {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes aparece-e-desaparece {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.bolinha1 {
+  animation: muda-cor 2s infinite;
+}
+
+.bolinha2 {
+  animation: cresce-e-volta 2s infinite;
+}
+
+.bolinha3 {
+  animation: kika 2s infinite;
+}
+
+.bolinha4 {
+  animation: aparece-e-desaparece 2s infinite;
+}
+
+
+/* Animação para aumentar o tamanho da imagem quando o mouse passa por cima */
+@keyframes growImage {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+/* Animação para aumentar o tamanho da imagem quando o mouse passa por cima */
+@keyframes growImage {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.growImage:hover {
+  animation: growImage 2s forwards ease-in-out;
+}
+
+@keyframes ColorChange {
+  0%{
+color: black;
+  }
+  100% {
+    color: rgb(161, 13, 247);
+  }
+}
+
+.ColorChange:hover {
+  animation: ColorChange 1s forwards ;
+
+}
