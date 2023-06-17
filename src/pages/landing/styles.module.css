@@ -1,0 +1,22 @@
+.container {
+  background-color: #f8f8f8;
+  min-height: 100vh;
+}
+
+.section {
+  padding: 60px 0;
+}
+
+.animateFadeIn {
+  animation: fadeIn 1s ease;
+  
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
