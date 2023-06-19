@@ -7,16 +7,22 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
+    "@hookform/resolvers": "^3.1.1",
+    "axios": "^1.4.0",
+    "mongodb": "^5.6.0",
     "next": "13.04.02",
     "next-connect": "^0.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.0",
+    "react-modal": "^3.16.1",
     "react-quill": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/react-modal": "^3.16.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4",
