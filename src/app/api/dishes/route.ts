@@ -15,9 +15,9 @@ export async function POST(request: Request) {
   try {
     const parsedRequest = await request.json();
 
-    const { name, description, costPrice, sellingPrice, costPercentage, rating, recipeID } = parsedRequest;
+    const { name, description, costPrice, sellingPrice, costPercentage, rating, recipeID, imageUrl } = parsedRequest;
 
-    if (!name || !description || !costPrice || !sellingPrice || !costPercentage || !rating || !recipeID) {
+    if (!name || !description || !costPrice || !sellingPrice || !costPercentage || !rating || !recipeID || !imageUrl) {
       return NextResponse.json({ success: false, message: "Invalid data" });
     }
 
@@ -31,6 +31,7 @@ export async function POST(request: Request) {
       costPercentage,
       rating,
       recipeID,
+      imageUrl,
     };
 
     const result = await db.collection("dishes").insertOne(dish);
@@ -47,9 +48,9 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   const parsedRequest = await request.json();
-  const { id, name, description, costPrice, sellingPrice, costPercentage, rating, recipeID } = parsedRequest;
+  const { id, name, description, costPrice, sellingPrice, costPercentage, rating, recipeID, imageUrl } = parsedRequest;
 
-  if (!id || !name || !description || !costPrice || !sellingPrice || !costPercentage || !rating || !recipeID) {
+  if (!id || !name || !description || !costPrice || !sellingPrice || !costPercentage || !rating || !recipeID || !imageUrl) {
     return NextResponse.json({ success: false, message: "Invalid data" });
   }
 
@@ -66,6 +67,7 @@ export async function PUT(request: Request) {
         costPercentage,
         rating,
         recipeID,
+        imageUrl,
       },
     }
   );
