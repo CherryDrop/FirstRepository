@@ -19,8 +19,8 @@ export function CreateIngredientForm({
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     defaultValues: {
         name: "",
-        unitPrice: 1,
-        weightPricePerGram: 1
+        unitPrice: "1",
+        weightPricePerGram: "1"
     },
     resolver: zodResolver(ingredientSchema)
   });
