@@ -2,22 +2,13 @@ import { Db, ObjectId } from "mongodb";
 import { connectToDatabase } from "@/lib/mongodb.config";
 import { NextResponse } from "next/server";
 import { parse } from "path";
-
-export async function GET() {
-  const db: Db = await connectToDatabase();
-
-  const dishes = await db.collection("dishes").find().toArray();
-
-  return NextResponse.json({ success: true, data: dishes });
-}
-
 export async function POST(request: Request) {
   try {
     const parsedRequest = await request.json();
 
-    const { name, description, costPrice, sellingPrice, costPercentage, rating, recipeID, imageUrl } = parsedRequest;
+    const { name, description, sellingPrice, rating, recipeId, imageUrl } = parsedRequest;
 
-    if (!name || !description || !costPrice || !sellingPrice || !costPercentage || !rating || !recipeID || !imageUrl) {
+    if (!name || !description || !sellingPrice || !rating || !recipeId || !imageUrl) {
       return NextResponse.json({ success: false, message: "Invalid data" });
     }
 
@@ -26,11 +17,9 @@ export async function POST(request: Request) {
     const dish = {
       name,
       description,
-      costPrice,
       sellingPrice,
-      costPercentage,
       rating,
-      recipeID,
+      recipeId: new ObjectId(recipeId),
       imageUrl,
     };
 
@@ -46,54 +35,47 @@ export async function POST(request: Request) {
   }
 }
 
-export async function PUT(request: Request) {
-  const parsedRequest = await request.json();
-  const { id, name, description, costPrice, sellingPrice, costPercentage, rating, recipeID, imageUrl } = parsedRequest;
-
-  if (!id || !name || !description || !costPrice || !sellingPrice || !costPercentage || !rating || !recipeID || !imageUrl) {
-    return NextResponse.json({ success: false, message: "Invalid data" });
-  }
-
+export async function GET() {
   const db: Db = await connectToDatabase();
+  const dishes = await db.collection("dishes").find().toArray();
+  return NextResponse.json({ success: true, data: dishes });
+}
 
-  const result = await db.collection("dishes").updateOne(
-    { _id: new ObjectId(id) },
-    {
-      $set: {
-        name,
-        description,
-        costPrice,
-        sellingPrice,
-        costPercentage,
-        rating,
-        recipeID,
-        imageUrl,
-      },
+export async function PUT(request: Request) {
+  try {
+    const parsedRequest = await request.json();
+    const { _id, name, description, sellingPrice, rating, recipeId, imageUrl } = parsedRequest;
+    const db: Db = await connectToDatabase();
+
+    const updatedResult = await db.collection("dishes").updateOne(
+      { _id: new ObjectId(_id) },
+      { $set: { name, description, sellingPrice, rating, recipeId: new ObjectId(recipeId), imageUrl } }
+    );
+
+    if (updatedResult.acknowledged) {
+      return NextResponse.json({ success: true, message: "Dish updated successfully" });
+    } else {
+      return NextResponse.json({ success: false, message: "Failed to update dish" });
     }
-  );
-
-  if (result.modifiedCount === 1) {
-    return NextResponse.json({ success: true, message: "Dish updated successfully" });
-  } else {
-    return NextResponse.json({ success: false, message: "Failed to update dish" });
+  } catch (error) {
+    console.log(error);
   }
 }
 
 export async function DELETE(request: Request) {
-  const parsedRequest = await request.json();
-  const { id } = parsedRequest;
+  try {
+    const parsedRequest = await request.json();
+    const { _id } = parsedRequest;
+    const db: Db = await connectToDatabase();
 
-  if (!id) {
-    return NextResponse.json({ success: false, message: "Invalid data" });
-  }
+    const deletedResult = await db.collection("dishes").deleteOne({ _id: new ObjectId(_id) });
 
-  const db: Db = await connectToDatabase();
-
-  const result = await db.collection("dishes").deleteOne({ _id: new ObjectId(id) });
-
-  if (result.deletedCount === 1) {
-    return NextResponse.json({ success: true, message: "Dish deleted successfully" });
-  } else {
-    return NextResponse.json({ success: false, message: "Failed to delete dish" });
+    if (deletedResult.acknowledged) {
+      return NextResponse.json({ success: true, message: "Dish deleted successfully" });
+    } else {
+      return NextResponse.json({ success: false, message: "Failed to delete dish" });
+    }
+  } catch (error) {
+    console.log(error);
   }
 }

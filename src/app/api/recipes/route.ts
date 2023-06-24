@@ -3,21 +3,13 @@ import { connectToDatabase } from "@/lib/mongodb.config";
 import { NextResponse } from "next/server";
 import { parse } from "path";
 
-export async function GET() {
-  const db: Db = await connectToDatabase();
-
-  const recipes = await db.collection("recipes").find().toArray();
-
-  return NextResponse.json({ success: true, data: recipes });
-}
-
 export async function POST(request: Request) {
   try {
-    const parsedrequest = await request.json();
+    const parsedRequest = await request.json();
 
-    const { name, ingredients, preparationSteps } = parsedrequest;
+    const { name, description, ingredients, preparationSteps, yieldWeight, yieldUnits } = parsedRequest;
 
-    if (!name || !ingredients || !preparationSteps) {
+    if (!name || !description || !ingredients || !preparationSteps || !yieldWeight || !yieldUnits) {
       return NextResponse.json({ success: false, message: "Invalid data" });
     }
 
@@ -25,8 +17,11 @@ export async function POST(request: Request) {
 
     const recipe = {
       name,
+      description,
       ingredients,
       preparationSteps,
+      yieldWeight,
+      yieldUnits,
     };
 
     const result = await db.collection("recipes").insertOne(recipe);
@@ -41,42 +36,47 @@ export async function POST(request: Request) {
   }
 }
 
-export async function PUT(request: Request) {
-  const parsedrequest = await request.json();
-  const { id, name, ingredients, preparationSteps } = parsedrequest;
-  if (!id || !name || !ingredients || !preparationSteps) {
-    return NextResponse.json({ success: false, message: "Invalid data" });
-  }
-
+export async function GET() {
   const db: Db = await connectToDatabase();
+  const recipes = await db.collection("recipes").find().toArray();
+  return NextResponse.json({ success: true, data: recipes });
+}
 
-  const result = await db.collection("recipes").updateOne(
-    { _id: new ObjectId(id) },
-    { $set: { name, ingredients, preparationSteps } }
-  );
+export async function PUT(request: Request) {
+  try {
+    const parsedRequest = await request.json();
+    const { _id, name, description, ingredients, preparationSteps, yieldWeight, yieldUnits } = parsedRequest;
+    const db: Db = await connectToDatabase();
 
-  if (result.modifiedCount === 1) {
-    return NextResponse.json({ success: true, message: "Recipe updated successfully" });
-  } else {
-    return NextResponse.json({ success: false, message: "Failed to update recipe" });
+    const updatedResult = await db.collection("recipes").updateOne(
+      { _id: new ObjectId(_id) },
+      { $set: { name, description, ingredients, preparationSteps, yieldWeight, yieldUnits } }
+    );
+
+    if (updatedResult.acknowledged) {
+      return NextResponse.json({ success: true, message: "Recipe updated successfully" });
+    } else {
+      return NextResponse.json({ success: false, message: "Failed to update recipe" });
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
 export async function DELETE(request: Request) {
-  const parsedrequest = await request.json();
-  const { id } = parsedrequest;
+  try {
+    const parsedRequest = await request.json();
+    const { _id } = parsedRequest;
+    const db: Db = await connectToDatabase();
 
-  if (!id) {
-    return NextResponse.json({ success: false, message: "Invalid data" });
-  }
+    const deletedResult = await db.collection("recipes").deleteOne({ _id: new ObjectId(_id) });
 
-  const db: Db = await connectToDatabase();
-
-  const result = await db.collection("recipes").deleteOne({ _id: new ObjectId(id) });
-
-  if (result.deletedCount === 1) {
-    return NextResponse.json({ success: true, message: "Recipe deleted successfully" });
-  } else {
-    return NextResponse.json({ success: false, message: "Failed to delete recipe" });
+    if (deletedResult.acknowledged) {
+      return NextResponse.json({ success: true, message: "Recipe deleted successfully" });
+    } else {
+      return NextResponse.json({ success: false, message: "Failed to delete recipe" });
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
