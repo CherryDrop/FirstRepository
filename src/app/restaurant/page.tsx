@@ -17,6 +17,11 @@ export function CreateIngredientForm({
     onSubmit: onSuccess
  }: any) {
   const { register, handleSubmit, control, formState: { errors } } = useForm({
+    defaultValues: {
+        name: "",
+        unitPrice: 1,
+        weightPricePerGram: 1
+    },
     resolver: zodResolver(ingredientSchema)
   });
 
@@ -160,36 +165,66 @@ export function ListIngredients() {
     }
   }
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredIngredients = ingredients.filter((ingredient: any) =>
+    ingredient.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h2 className="text-2xl font-semibold">Ingredients</h2>
+      <div>
+        <input
+          type="text"
+          placeholder="Search by ingredient name"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="p-2 border border-gray-300 rounded"
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {ingredients.map((ingredient: any) => (
+        {filteredIngredients.map((ingredient: any) => (
           <div key={ingredient._id} className="p-4 border border-gray-300 rounded">
             <h3 className="text-xl font-semibold">{ingredient.name}</h3>
             <p>Unit Price: {ingredient.unitPrice}</p>
             <p>Weight Price per Gram: {ingredient.weightPricePerGram}</p>
             <div className="flex justify-end">
-              <button onClick={() => handleEdit(ingredient)} className="px-2 py-1 mr-2 text-white bg-green-500 rounded hover:bg-green-600">Edit</button>
-              <button onClick={() => handleDelete(ingredient._id)} className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600">Delete</button>
+              <button
+                onClick={() => handleEdit(ingredient)}
+                className="px-2 py-1 mr-2 text-white bg-green-500 rounded hover:bg-green-600"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(ingredient._id)}
+                className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
-        {editingIngredient && 
-          <EditIngredientForm
-            isOpen={modalIsOpen} 
-            onRequestClose={() => setIsOpen(false)} 
-            onSubmit={handleUpdate} 
-            defaultValues={editingIngredient} 
-          />}
-        {isCreateOpen &&
-            <CreateIngredientForm
-                isOpen={isCreateOpen}
-                onRequestClose={() => setIsCreateOpen(false)}
-                onSubmit={handleCreate}
-            />}
-            <button onClick={() => handleCreateOpen()} className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600">Create Ingredient</button>
       </div>
+      {editingIngredient && (
+        <EditIngredientForm
+          isOpen={modalIsOpen}
+          onRequestClose={() => setIsOpen(false)}
+          onSubmit={handleUpdate}
+          defaultValues={editingIngredient}
+        />
+      )}
+      {isCreateOpen && (
+        <CreateIngredientForm
+          isOpen={isCreateOpen}
+          onRequestClose={() => setIsCreateOpen(false)}
+          onSubmit={handleCreate}
+        />
+      )}
+      <button onClick={() => handleCreateOpen()} className="p-[1rem] text-white w-[30%] bg-red-500 rounded hover:bg-red-600 fixed bottom-0 left-0">Create Ingredient</button>
     </div>
   );
 }
