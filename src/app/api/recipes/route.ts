@@ -1,7 +1,48 @@
 import { Db, ObjectId } from "mongodb";
 import { connectToDatabase } from "@/lib/mongodb.config";
 import { NextResponse } from "next/server";
-import { parse } from "path";
+import z from "zod";
+import { Ingredient } from "@/lib/DTOs/dtos";
+
+export type Recipe = {
+  _id: string;
+  name: string;
+  description: string;
+  ingredients: Ingredient[];
+  preparationSteps: string[];
+  yieldWeight: number;
+  yieldUnits: string;
+};
+
+export const CreateRecipeSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  ingredients: z.array(
+    z.object({
+      _id: z.string(),
+      name: z.string(),
+      unit: z.number(),
+      pricePerUnit: z.number(),
+    })
+  ),
+  preparationSteps: z.array(z.object({ step: z.string(), description: z.string() })),
+  yieldWeight: z.string().refine((val) => {
+    return Number(val)
+  }, { message: "Yield weight must be a number and greater than 0"}),
+  yieldUnits: z.string()
+});
+
+export type CreateRecipeDTO = z.infer<typeof CreateRecipeSchema>;
+
+export interface CreateRecipeBody {
+  name: string;
+  description: string;
+  ingredients: Ingredient[];
+  preparationSteps: string[];
+  yieldWeight: number;
+  yieldUnits: string;
+}
+
 
 export async function POST(request: Request) {
   try {

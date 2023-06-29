@@ -18,6 +18,12 @@ module.exports = {
           dark: '#C0540D',
           text: '#ffffff',
         },
+        error: {
+          light: '#F9A826',
+          DEFAULT: '#F58244',
+          dark: '#C0540D',
+          text: '#ffffff',
+        },
         secondary: {
           light: '#3D96AE',
           DEFAULT: '#267B8E',
@@ -28,6 +34,12 @@ module.exports = {
           light: '#F1F1F1',
           DEFAULT: '#999999',
           dark: '#333333',
+          text: '#ffffff',
+        },
+        button: {
+          light: '#F9A826',
+          DEFAULT: '#F58244',
+          dark: '#C0540D',
           text: '#ffffff',
         },
         background: {
