@@ -205,10 +205,7 @@ const mockDishes: Dish[] = [
   },
 ];
 
-
 import React from "react";
-
-
 
 const Menu: React.FC = () => {
   const DishCard: React.FC<{ dish: Dish }> = ({ dish }) => {
@@ -232,9 +229,13 @@ const Menu: React.FC = () => {
       </div>
     );
   };
-  
+
   const DishName: React.FC<{ name: string }> = ({ name }) => {
-    return <div className="font-bold text-xl mb-2 text-background-titleBox-text bg-background-titleBox rounded-lg p-2">{name}</div>;
+    return (
+      <div className="font-bold text-xl mb-2 text-background-titleBox-text bg-background-titleBox rounded-lg p-2">
+        {name}
+      </div>
+    );
   };
 
   const DishDescription: React.FC<{ description: string }> = ({ description }) => {
@@ -242,7 +243,11 @@ const Menu: React.FC = () => {
   };
 
   const DishDetails: React.FC<{ weight: string; serves: number }> = ({ weight, serves }) => {
-    return <p className="text-background-card-text">{weight}g - Serves {serves} People</p>;
+    return (
+      <p className="text-background-card-text">
+        {weight}g - Serves {serves} People
+      </p>
+    );
   };
 
   const DishPrice: React.FC<{ price: number }> = ({ price }) => {
@@ -250,22 +255,25 @@ const Menu: React.FC = () => {
   };
 
   return (
-    <div className="p-4 bg-background-dark text-background-text">
+    <div className="p-4 bg-white text-background-text w-[100%] mx-auto mt-[-05rem]">
+      <img
+        className="w-[100%] h-fit"
+        src="https://cdn.discordapp.com/attachments/327238569569550338/1127049736101314651/carnes.png"
+      />
       {Object.values(FoodCategory).map((category) => (
         <div key={category} className="mb-8">
           <h2 className="text-4xl text-background-titleBox-text mb-4">{category}</h2>
           <div className="grid grid-cols-2 gap-4">
             {mockDishes
               .filter((dish) => dish.category === category)
-              .map((dish) => <DishCard key={dish.name} dish={dish} />)}
+              .map((dish) => (
+                <DishCard key={dish.name} dish={dish} />
+              ))}
           </div>
         </div>
       ))}
     </div>
   );
 };
-
-
-
 
 export default Menu;

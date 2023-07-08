@@ -66,28 +66,33 @@ export const ListIngredients: React.FC<{
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">Ingredients</h2>
+      <h2 className="text-2xl text-white font-semibold">Ingredients</h2>
       <div>
         <input
           type="text"
           placeholder="Search by ingredient name"
           value={searchTerm}
           onChange={handleSearch}
-          className="p-2 border border-gray-300 rounded w-[80%]"
+          className="p-2 border text-white border-border-dark rounded  w-[80%]"
         />
       </div>
       <div className="w-full h-[90vh] overflow-y-scroll scrollbar-thumb-red scrollbar-track-transparent">
         <table className="table-auto w-full">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="px-4 py-2">Nome</th>
-              <th className="px-4 py-2">Preço</th>
-              <th className="px-4 py-2">Ações</th>
+            <tr className="bg-secondary-dark">
+              <th className="px-4 py-2 text-white">Nome</th>
+              <th className="px-4 py-2  text-white">Preço</th>
+              <th className="px-4 py-2  text-white">Ações</th>
             </tr>
           </thead>
           <tbody>
             {filteredIngredients.map((ingredient: Ingredient, index) => (
-              <tr key={ingredient._id} className={`${index % 2 === 0 ? "bg-gray-100" : "bg-white"} hover:bg-gray-200`}>
+              <tr
+                key={ingredient._id}
+                className={`${
+                  index % 2 === 0 ? "bg-background-dark" : "bg-secondary-dark"
+                } hover:bg-gray-200 text-white`}
+              >
                 <td className="px-4 py-2">{ingredient.name}</td>
                 <td className="px-4 py-2">{`${(Number(ingredient.pricePerUnit) / 100).toLocaleString("pt-BR", {
                   style: "currency",

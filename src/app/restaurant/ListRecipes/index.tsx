@@ -66,21 +66,21 @@ export const ListRecipes: React.FC<{
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">Recipes</h2>
+      <h2 className="text-2xl font-semibold text-white">Recipes</h2>
       <div>
         <input
           type="text"
           placeholder="Search by recipe name"
           value={searchTerm}
           onChange={handleSearch}
-          className="p-2 border border-gray-300 rounded w-[80%]"
+          className="p-2 border border-border-dark rounded w-[80%]"
         />
       </div>
       <div className="w-full h-[90vh] overflow-y-scroll scrollbar-thumb-red scrollbar-track-transparent flex flex-wrap">
         {filteredRecipes.map((recipe: Recipe) => (
-          <div key={recipe._id} className="m-4 w-64 bg-white shadow rounded p-4">
-            <h3 className="font-bold">{recipe.name}</h3>
-            <p>{recipe.description}</p>
+          <div key={recipe._id} className="m-4 w-64 bg-secondary-dark shadow rounded p-4">
+            <h3 className="font-bold text-white">{recipe.name}</h3>
+            <p className="text-white">{recipe.description}</p>
             <button
               onClick={() => handleEditClick(recipe)}
               className="mt-4 px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600 w-full"

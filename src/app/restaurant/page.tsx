@@ -49,7 +49,7 @@ export default function ManageDataPage() {
 
   return (
     <>
-      <div className="grid grid-cols-7 gap-4 pb-[10rem]">
+      <div className="grid grid-cols-7 gap-4 pb-[10rem] bg-background-dark">
         <div className="col-span-3">
           <ListIngredients refetchIngredients={refetchIngredients} setRefetchIngredients={handleRefetchIngredients} />
         </div>

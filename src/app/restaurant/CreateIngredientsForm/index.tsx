@@ -51,16 +51,20 @@ export const CreateIngredientForm: React.FC<{
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Create Ingredient"
-      className="p-4 mx-auto my-20 bg-white rounded shadow-xl w-96"
+      className="p-4 mx-auto my-20 bg-background-dark rounded shadow-xl w-96"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-        <h2 className="text-2xl font-semibold">Add New Ingredient</h2>
-        <label className="block">Ingredient Name</label>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 text-primary-dark ">
+        <h2 className="text-2xl text-primary-dark font-semibold">Add New Ingredient</h2>
+        <label className="block text-primary-dark">Ingredient Name</label>
         <Controller
           name="name"
           control={control}
           render={({ field }) => (
-            <input {...field} className="w-full p-2 border border-gray-300 rounded" placeholder="Ingredient name" />
+            <input
+              {...field}
+              className="w-full p-2 border border-border-dark bg-secondary-dark  text-white rounded"
+              placeholder="Ingredient name"
+            />
           )}
         />
         {errors.name && <p className="text-red-500">{`${errors.name.message}`}</p>}
@@ -69,7 +73,11 @@ export const CreateIngredientForm: React.FC<{
           name="unit"
           control={control}
           render={({ field }) => (
-            <input {...field} className="w-full p-2 border border-gray-300 rounded" placeholder="Unit Price" />
+            <input
+              {...field}
+              className="w-full p-2 border border-gray-300 rounded bg-secondary-dark text-white"
+              placeholder="Unit Price"
+            />
           )}
         />
         {errors.unit && <p className="text-red-500">{`${errors.unit.message}`}</p>}
@@ -81,11 +89,12 @@ export const CreateIngredientForm: React.FC<{
             <input
               type="number"
               {...field}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded  bg-secondary-dark text-white"
               placeholder="Unit Quantity"
             />
           )}
         />
+
         {errors.unitQuantity && <p className="text-red-500">{`${errors.unitQuantity.message}`}</p>}
         <label className="block">Price Per Unit quantity</label>
         <Controller
@@ -95,7 +104,7 @@ export const CreateIngredientForm: React.FC<{
             <input
               type="number"
               {...field}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded  bg-secondary-dark text-white"
               placeholder="Weight Price per Gram"
             />
           )}
