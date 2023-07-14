@@ -6,14 +6,14 @@ enum FoodCategory {
 }
 
 type Dish = {
-  name: string;
-  price: number;
-  weight: number;
-  serves: number;
-  photo: string;
-  category: FoodCategory;
-  description: string;
-};
+  name: string
+  price: number
+  weight: number
+  serves: number
+  photo: string
+  category: FoodCategory
+  description: string
+}
 
 const mockDishes: Dish[] = [
   // Pizzas
@@ -203,9 +203,9 @@ const mockDishes: Dish[] = [
     category: FoodCategory.Dessert,
     description: "Indulgent Italian dessert with a truffle-like shape, filled with gelato and coated in cocoa.",
   },
-];
+]
 
-import React from "react";
+import React from "react"
 
 const Menu: React.FC = () => {
   const DishCard: React.FC<{ dish: Dish }> = ({ dish }) => {
@@ -227,39 +227,67 @@ const Menu: React.FC = () => {
           </div>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const DishName: React.FC<{ name: string }> = ({ name }) => {
     return (
       <div className="font-bold text-xl mb-2 text-background-titleBox-text bg-background-titleBox rounded-lg p-2">
         {name}
       </div>
-    );
-  };
+    )
+  }
 
   const DishDescription: React.FC<{ description: string }> = ({ description }) => {
-    return <p className="text-md font-semibold mb-2 text-background-card-text">{description || "Esqueci"}</p>;
-  };
+    return <p className="text-md font-semibold mb-2 text-background-card-text">{description || "Esqueci"}</p>
+  }
 
   const DishDetails: React.FC<{ weight: string; serves: number }> = ({ weight, serves }) => {
     return (
       <p className="text-background-card-text">
         {weight}g - Serves {serves} People
       </p>
-    );
-  };
+    )
+  }
 
   const DishPrice: React.FC<{ price: number }> = ({ price }) => {
-    return <p className="text-lg text-primary-dark">R${price}</p>;
-  };
+    return <p className="text-lg text-primary-dark">R${price}</p>
+  }
 
   return (
-    <div className="p-4 bg-white text-background-text w-[100%] mx-auto mt-[-05rem]">
-      <img
+    <div className=" bg-white text-background-text w-[100%] ">
+      <div className="w-[100%] h-fit relative"><img
         className="w-[100%] h-fit"
         src="https://cdn.discordapp.com/attachments/327238569569550338/1127049736101314651/carnes.png"
+
       />
+        <div className="absolute bg-[#000000A0] h-[5rem] w-[100%] pl-[2rem] top-[0rem] font flex justify-center items-center">
+  <button className="mx-2 text-lg text-shadow-light">HOME</button>
+  <button className="mx-2 text-lg text-shadow-light">ORDER ONLINE</button>
+  <button className="mx-2 text-lg text-shadow-light">WE SERVE</button>
+  <button className="mx-2 text-lg text-shadow-light">ABOUT US</button>
+  <button className="mx-2 text-lg text-shadow-light">WHY US</button>
+  <button className="mx-2 text-lg text-shadow-light">GALLERY</button>
+  <button className="mx-2 text-lg text-shadow-light">VIDEOS</button>
+  <button className="mx-2 text-lg text-shadow-light">TESTIMONIALS</button>
+  <button className="ml-auto mr-2 text-lg pr-[2rem] font-bold text-shadow-light">LOGIN</button>
+</div>
+
+        <div className="absolute bg-[#1117] h-[15rem] w-[50rem] top-[26rem] font flex justify-center items-center"/>
+        <h1 className="absolute text-4xl top-[29rem] left-[9rem] text-shadow-light">Relish the Most<br></br>Tempting Delicacies with Us!</h1>
+
+        <div className="flex justify-center absolute top-[36rem] left-[8rem]">
+  <button className="bg-yellow-300 h-20 w-44 mx-4 rounded-md hover:bg-yellow-400 hover:text-white shadow-md text-xl font-bold">MENU</button>
+  <button className="bg-yellow-300 h-20 w-44 mx-4 rounded-md hover:bg-yellow-400 hover:text-white shadow-md text-xl font-bold">ORDER ONLINE</button>
+  <button className="bg-yellow-300 h-20 w-44 mx-4 rounded-md hover:bg-yellow-400 hover:text-white shadow-md text-xl font-bold">BOOK A TABLE</button>
+</div>
+
+
+
+
+
+      </div >
+      
       {Object.values(FoodCategory).map((category) => (
         <div key={category} className="mb-8">
           <h2 className="text-4xl text-background-titleBox-text mb-4">{category}</h2>
@@ -273,7 +301,7 @@ const Menu: React.FC = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu
